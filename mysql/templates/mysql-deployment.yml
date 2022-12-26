@@ -1,0 +1,72 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+  labels:
+    app: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: db
+  template:
+    metadata:
+      labels:
+        app: db
+    spec:
+      containers:
+      - name: mysql
+        image: mysql:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: flaskapisecrets
+              key: db_root_password
+        ports:
+        - containerPort: 3306
+          name: db-container
+        volumeMounts:
+          - name: mysql-persistent-storage
+            mountPath: /var/lib/mysql
+          - name: mysql-initdb
+            mountPath: /docker-entrypoint-initdb.d
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: mysql-pv-claim
+        - name: mysql-initdb
+          configMap:
+            name: mysql-initdb-config
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-initdb-config
+data:
+  initdb.sql: |
+    CREATE DATABASE IF NOT EXISTS `mydb`;
+    USE `mydb`;
+    CREATE TABLE IF NOT EXISTS `msg_table` (`user_id` int(11) NOT NULL AUTO_INCREMENT,`usernamedb` varchar(255) DEFAULT NULL,`msgdb` varchar(50) DEFAULT NULL,PRIMARY KEY (`user_id`)) 
+    ENGINE=MyISAM AUTO_INCREMENT=10002 ;
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: db
+  labels:
+    app: db
+spec:
+  ports:
+  - port: 3306
+    protocol: TCP
+    name: db
+  selector:
+    app: db
+  type: ClusterIP 
+apiVersion: v1
+
+

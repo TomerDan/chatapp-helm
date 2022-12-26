@@ -1,0 +1,26 @@
+# Default values for chatapp.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: 644435390668.dkr.ecr.us-east-1.amazonaws.com/tomer-protfolio
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+  containerPort: 8083
+  env: 
+    db_name: "flaskapi"
+
+mysql:
+  MYSQL:
+    flaskapisecrets: "root"
+
+service:
+  type: ClusterIP
+  port: 8083
+
+ingress:
+  dns: tomerdaniely.sytes.net
+
