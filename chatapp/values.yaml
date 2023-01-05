@@ -8,7 +8,7 @@ image:
   repository: 644435390668.dkr.ecr.us-east-1.amazonaws.com/tomer-protfolio
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 0.0.13
+  tag: 0.0.14
   containerPort: 8083
   env: 
     db_name: "flaskapi"
