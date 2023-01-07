@@ -8,11 +8,9 @@ image:
   repository: 812619807720.dkr.ecr.us-east-1.amazonaws.com/app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-<<<<<<< HEAD
   tag: 0.0.14
-=======
-  tag: "0.0.14"
->>>>>>> cd13f44 (del db)
+
+
   containerPort: 8083
 
 app:
