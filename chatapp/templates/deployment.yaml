@@ -35,12 +35,15 @@ spec:
               containerPort: 8083
               protocol: TCP
           env: 
-          - name: db_name
-            value: {{ .Values.image.env.db_name }}   
-          - name: flaskapisecrets
-            valueFrom:
-              secretKeyRef:
-                name: flaskapisecrets
-                key: db_root_password
+          - name: MYSQL_PASSWORD
+            value: root
+          - name: MYSQL_ROOT_PASSWORD
+            value: root
+          - name: MYSQL_DATABASE
+            value: mydb
+          - name: MYSQL_USER
+            value: root
+          - name: MYSQL_HOST
+            value: mysql
 
 

@@ -5,17 +5,19 @@
 replicaCount: 1
 
 image:
-  repository: 644435390668.dkr.ecr.us-east-1.amazonaws.com/tomer-protfolio
+  repository: 812619807720.dkr.ecr.us-east-1.amazonaws.com/app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
+<<<<<<< HEAD
   tag: 0.0.14
+=======
+  tag: "0.0.14"
+>>>>>>> cd13f44 (del db)
   containerPort: 8083
-  env: 
-    db_name: "flaskapi"
 
-mysql:
-  MYSQL:
-    flaskapisecrets: "root"
+app:
+  db_root_password: root
+  db_user_password: root
 
 service:
   type: NodePort
